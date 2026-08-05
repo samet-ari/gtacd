@@ -1,0 +1,45 @@
+---
+- hosts: all
+  become: yes
+
+  vars:
+    app_dest: /var/www/html/tp-app
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Create application directory
+      file:
+        path: "{{ app_dest }}"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Copy application files
+      copy:
+        src: ../app/
+        dest: "{{ app_dest }}"
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Deploy Nginx vhost config
+      template:
+        src: nginx_vhost.conf.j2
+        dest: /etc/nginx/sites-available/tp-app.conf
+
+    - name: Enable vhost
+      file:
+        src: /etc/nginx/sites-available/tp-app.conf
+        dest: /etc/nginx/sites-enabled/tp-app.conf
+        state: link
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
