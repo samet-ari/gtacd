@@ -8,9 +8,13 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Give execute permission
+        run: chmod +x app/check_app.sh
 
       - name: Run application check script
         run: ./app/check_app.sh
