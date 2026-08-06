@@ -93,4 +93,4 @@ jobs:
           echo "✓ Clé SSH dédiée validée (2048+ bits, sans passphrase)"
           echo "✓ Secrets GitHub utilisés (pas de credentials en clair)"
           echo "✓ Utilisateur non-root (deployuser) configuré dans l'inventory"
-          echo "✓ Permissions inventory.ini restreintes (600)"
+          echo "✓ Permissions inventory.ini restreintes (600)"# trigger check Thu Aug  6 10:12:00 PM CEST 2026
